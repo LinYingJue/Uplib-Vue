@@ -1,6 +1,6 @@
 <template>
   <div>
-  测试:{{ book }}
+  测试2:{{ book }}
   </div>
 </template>
 
