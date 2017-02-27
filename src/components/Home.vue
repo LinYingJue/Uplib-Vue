@@ -36,7 +36,7 @@
           <p class="home-top-title"></p>
           <div class="swiper-container home-rank-swiper">
             <div class="swiper-wrapper" id="homeRankList">
-              <div class="swiper-slide top-rank-item" v-for="(book, index) in rankBooks" @click="showBookDetail(book.id)">
+              <div class="swiper-slide top-rank-item" v-for="(book, index) in rankBooks" @click="showBookDetail(book.bookId)">
                 <p style="font-size:12px;">{{book.ownerName}}</p>
                 <img :src="book.cover"></img>
                 <p>{{book.bookName}}</p>
@@ -71,20 +71,8 @@ export default {
         {src: require('../assets/exchange_icon.png'), name: '积分', url: 'score'},
         {src: require('../assets/borrow_icon.png'), name: '圈子', url: 'circle'}
       ],
-      rankBooks: [
-        {id: 1, ownerName: '林先生', src: require('../assets/book_cover.png'), bookName: '一本书'},
-        {id: 1, ownerName: '林先生', src: require('../assets/book_cover.png'), bookName: '二本书'},
-        {id: 1, ownerName: '林先生', src: require('../assets/book_cover.png'), bookName: '三本书'},
-        {id: 1, ownerName: '林先生', src: require('../assets/book_cover.png'), bookName: '四本书'},
-        {id: 1, ownerName: '林先生', src: require('../assets/book_cover.png'), bookName: '五本书'},
-        {id: 1, ownerName: '林先生', src: require('../assets/book_cover.png'), bookName: '六本书'},
-        {id: 1, ownerName: '林先生', src: require('../assets/book_cover.png'), bookName: '七本书'},
-        {id: 1, ownerName: '林先生', src: require('../assets/book_cover.png'), bookName: '八本书'},
-        {id: 1, ownerName: '林先生', src: require('../assets/book_cover.png'), bookName: '九本书'},
-        {id: 1, ownerName: '林先生', src: require('../assets/book_cover.png'), bookName: '十本书'}
-      ],
-      doubanUrl: 'https://api.douban.com/v2/book/isbn/9787541142185',
-      uplibUrl: 'https://upchat.95516.net/applet/uplib/uplib/getTopThree'
+      rankBooks: [],
+      doubanUrl: 'https://api.douban.com/v2/book/isbn/9787541142185'
     }
   },
   mounted () {
@@ -101,6 +89,11 @@ export default {
 
       }
     })
+    this.$http.get('/getTopThree').then((response) => {
+      this.rankBooks = response.data.books
+    })
+  },
+  updated () {
     this.rankSwiper = new Swiper('.home-rank-swiper', {
       slidesPerView: 4,
       spaceBetween: 10,
@@ -112,7 +105,7 @@ export default {
       this.homeSwiper.slideTo(0)
     },
     showBookDetail (id) {
-      this.$http.jsonp(this.doubanUrl).then((response) => {
+      this.$http.get('/getBookDetail?bookId=' + id).then((response) => {
         this.$router.push({path: 'book-detail', query: { data: response.data }})
       })
     }

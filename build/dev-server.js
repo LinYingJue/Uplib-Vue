@@ -11,6 +11,7 @@ var express = require('express')
 var webpack = require('webpack')
 var proxyMiddleware = require('http-proxy-middleware')
 var webpackConfig = require('./webpack.dev.conf')
+var https = require('https')
 
 // default port where dev server listens for incoming traffic
 var port = process.env.PORT || config.dev.port
@@ -67,6 +68,33 @@ var uri = 'http://localhost:' + port
 devMiddleware.waitUntilValid(function () {
   console.log('> Listening at ' + uri + '\n')
 })
+
+app.get('/getTopThree', (request, response) => {
+  https.get('https://upchat.95516.net/applet/uplib/uplib/getTopThree', (res) => {
+    var books = '';
+    res.on('data', (d) => {
+      books += d;
+    }).on('error',(e) => {
+      console.error(e);
+    }).on('end', () => {
+      response.send(books);
+    });
+  });
+});
+
+app.get('/getBookDetail', (request, response) => {
+  var bookId = request.query.bookId;
+  https.get('https://upchat.95516.net/applet/uplib/uplib/book/bookDetail?bookId=' + bookId, (res) => {
+    var book = '';
+    res.on('data', (d) => {
+      book += d;
+    }).on('error',(e) => {
+      console.error(e);
+    }).on('end', () => {
+      response.send(book);
+    });
+  });
+});
 
 module.exports = app.listen(port, function (err) {
   if (err) {
