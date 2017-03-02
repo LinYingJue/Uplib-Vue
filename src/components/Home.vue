@@ -1,7 +1,14 @@
 <template>
   <div class="swiper-container home-drawer-swiper">
     <div class="swiper-wrapper">
-      <div class="swiper-slide menu-drawer">x</div>
+      <div class="swiper-slide menu-drawer">
+        <img id="headerIcon" src="../assets/user_header_icon.png"></img>
+        <ul>
+          <li v-for="(drawerMenu, index) in drawerMenus" @click="drawerClick(drawerMenu.id)">
+            <p>{{drawerMenu.name}}</p>
+          </li>
+        </ul>
+      </div>
       <div class="swiper-slide">
         <div class="top-menu">
           <div class="search-bar">
@@ -44,6 +51,7 @@
             </div>
           </div>
         </div>
+        <div class="menu-drawer-shadow" @click="drawerShadowClick()"></div>
       </div>
     </div>
   </div>
@@ -60,6 +68,13 @@ export default {
     return {
       homeSwiper: '',
       rankSwiper: '',
+      drawerMenus: [
+        {name: '我的图书', id: 1},
+        {name: '我的积分', id: 2},
+        {name: '借阅记录', id: 3},
+        {name: '公告', id: 4},
+        {name: '关于', id: 5}
+      ],
       mainMenus: [
         {id: 'borrowByCode', src: require('../assets/borrow_by_code.png'), name: '码上借'},
         {id: 'uploadBook', src: require('../assets/upload_book.png'), name: '上传'},
@@ -83,10 +98,11 @@ export default {
         $('.menu-drawer').css('height', $(window).height())
       },
       onSlideNextStart: function () {
-
+        $('.menu-drawer-shadow').css('display', 'none')
       },
       onSlidePrevStart: function () {
-
+        $('.menu-drawer-shadow').css('height', $(window).height())
+        $('.menu-drawer-shadow').css('display', 'block')
       }
     })
     this.$http.get('/getTopThree').then((response) => {
@@ -102,12 +118,22 @@ export default {
   },
   methods: {
     showMenu () {
+      $('.menu-drawer').css('height', $(window).height())
       this.homeSwiper.slideTo(0)
+      $('.menu-drawer-shadow').css('height', $(window).height())
+      $('.menu-drawer-shadow').css('display', 'block')
     },
     showBookDetail (id) {
       this.$http.get('/getBookDetail?bookId=' + id).then((response) => {
-        this.$router.push({path: 'book-detail', query: { data: response.data }})
+        this.$router.push({path: 'book-detail', query: { data: response.data.data }})
       })
+    },
+    drawerClick (id) {
+      console.log(id)
+    },
+    drawerShadowClick () {
+      this.homeSwiper.slideTo(1)
+      $('.menu-drawer-shadow').css('display', 'none')
     }
   }
 }
@@ -240,5 +266,44 @@ p{
   font-size: 16px;
   font-weight: 700;
   margin-bottom: 0;
+}
+
+.menu-drawer{
+  z-index: 9999;
+  color: #fff;
+  text-align: center;
+  width: 50%;
+  background: #444;
+}
+.menu-drawer img{
+  height: 70px;
+  width: 70px;
+  margin-top: 100px;
+  border-radius: 70px;
+}
+.menu-drawer ul{
+  margin-top: 30px;
+}
+.menu-drawer ul li{
+  border-bottom: 1px solid #fff;
+  margin-left: 30px;
+  margin-right: 30px;
+}
+.menu-drawer p{
+  height: 50px;
+  margin: 0;
+  font-size: 16px;
+  line-height: 50px;
+}
+.menu-drawer-shadow{
+  width: 100%;
+  background: #000;
+  height: 100%;
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0.5;
+  z-index: 9000;
 }
 </style>

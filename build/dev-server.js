@@ -1,5 +1,7 @@
+//检查npm node版本
 require('./check-versions')()
 
+//获取config/index.js配置
 var config = require('../config')
 if (!process.env.NODE_ENV) {
   process.env.NODE_ENV = JSON.parse(config.dev.env.NODE_ENV)
@@ -11,7 +13,7 @@ var express = require('express')
 var webpack = require('webpack')
 var proxyMiddleware = require('http-proxy-middleware')
 var webpackConfig = require('./webpack.dev.conf')
-var https = require('https')
+var http = require('http')
 
 // default port where dev server listens for incoming traffic
 var port = process.env.PORT || config.dev.port
@@ -70,7 +72,7 @@ devMiddleware.waitUntilValid(function () {
 })
 
 app.get('/getTopThree', (request, response) => {
-  https.get('https://upchat.95516.net/applet/uplib/uplib/getTopThree', (res) => {
+  http.get('http://tdctest.95516.com/uplib/getTopThree', (res) => {
     var books = '';
     res.on('data', (d) => {
       books += d;
@@ -84,7 +86,7 @@ app.get('/getTopThree', (request, response) => {
 
 app.get('/getBookDetail', (request, response) => {
   var bookId = request.query.bookId;
-  https.get('https://upchat.95516.net/applet/uplib/uplib/book/bookDetail?bookId=' + bookId, (res) => {
+  http.get('http://tdctest.95516.com/uplib/book/bookDetailInfo?bookId=' + bookId, (res) => {
     var book = '';
     res.on('data', (d) => {
       book += d;

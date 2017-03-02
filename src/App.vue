@@ -37,4 +37,8 @@ div{
   min-height: 450px;
   margin: 0 auto;
 }
+.container .book-detail-div{
+  position: absolute;
+  width: 100%;
+}
 </style>
