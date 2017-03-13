@@ -140,7 +140,7 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style type="text/css" lang="scss" scoped>
 p{
   margin: 0;
   font-size: 14px;
@@ -155,48 +155,53 @@ p{
 .search-bar{
   height: 50px;
   position: relative;
-}
-.search-bar .menu-icon{
-  position: absolute;
-  height: 20px;
-  width: 25px;
-  top: 15px;
-  left: 15px;
-}
-.search-bar p{
-  position: relative;
-  top: 10px;
-  margin: 0 15px 0 55px;
-  width: auto;
-  background: #30477b;
-  border-radius: 6px;
-  height: 30px;
-}
-.search-bar .search-icon{
-  height: 20px;
-  width: 18px;
-  position: absolute;
-  top: 5px;
-  left: 5px;
-}
-.search-bar input[type=text]{
-  outline: none;
-  height: 30px;
-  border: none;
-  padding-left: 30px;
-  background: #586780;
-  line-height: 30px;
-  width: 100%;
-  border-radius: 6px;
-  color: #fff;
-  box-sizing: border-box;
+
+  .menu-icon{
+    position: absolute;
+    height: 20px;
+    width: 25px;
+    top: 15px;
+    left: 15px;
+  }
+
+  p{
+    position: relative;
+    top: 10px;
+    margin: 0 15px 0 55px;
+    width: auto;
+    background: #30477b;
+    border-radius: 6px;
+    height: 30px;
+  }
+
+  .search-icon{
+    height: 20px;
+    width: 18px;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+  }
+
+  input[type=text]{
+    outline: none;
+    height: 30px;
+    border: none;
+    padding-left: 30px;
+    background: #586780;
+    line-height: 30px;
+    width: 100%;
+    border-radius: 6px;
+    color: #fff;
+    box-sizing: border-box;
+  }
 }
 .main-oper-bar{
   margin-top: 20px;
-}
-.main-oper-bar ul li{
-  width: 33.3%;
-  float: left;
+
+  ul li{
+    width: 33.3%;
+    float: left;
+  }
 }
 .main-list-item{
   position: relative;
@@ -206,18 +211,20 @@ p{
   background-image: url(../assets/index_header_icon_bg.png);
   margin:0 auto;
   background-size: 100% 100%;
-}
-.main-list-item img{
-  width: 50px;
-  height: 50px;
-  position: absolute;
-  top: 20px;
-  left: 50%;
-  margin-left: -25px;
-}
-.main-list-item p{
-  color: #fff;
-  padding-top: 70px;
+
+  img{
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    margin-left: -25px;
+  }
+
+  p{
+    color: #fff;
+    padding-top: 70px;
+  }
 }
 .second-oper-bar{
   height: 120px;
@@ -226,10 +233,11 @@ p{
   padding-right: 20px;
   padding-top: 25px;
   border-bottom: 2px solid #d3d3d3;
-}
-.second-oper-bar ul li{
-  width: 25%;
-  float: left;
+
+  ul li{
+    width: 25%;
+    float: left;
+  }
 }
 .second-list-item img{
   width: 40px;
@@ -243,11 +251,12 @@ p{
   text-align: center;
   position: relative;
   color: #1c4182;
-}
-.home-top-rank a{
-  position: absolute;
-  right: 2px;
-  font-size: 14px;
+
+  a{
+    position: absolute;
+    right: 2px;
+    font-size: 14px;
+  }
 }
 .home-rank-swiper{
   margin-top: 10px;
@@ -274,26 +283,30 @@ p{
   text-align: center;
   width: 50%;
   background: #444;
-}
-.menu-drawer img{
-  height: 70px;
-  width: 70px;
-  margin-top: 100px;
-  border-radius: 70px;
-}
-.menu-drawer ul{
-  margin-top: 30px;
-}
-.menu-drawer ul li{
-  border-bottom: 1px solid #fff;
-  margin-left: 30px;
-  margin-right: 30px;
-}
-.menu-drawer p{
-  height: 50px;
-  margin: 0;
-  font-size: 16px;
-  line-height: 50px;
+
+  img{
+    height: 70px;
+    width: 70px;
+    margin-top: 100px;
+    border-radius: 70px;
+  }
+
+  ul{
+    margin-top: 30px;
+  }
+
+  ul li{
+    border-bottom: 1px solid #fff;
+    margin-left: 30px;
+    margin-right: 30px;
+  }
+
+  p{
+    height: 50px;
+    margin: 0;
+    font-size: 16px;
+    line-height: 50px;
+  }
 }
 .menu-drawer-shadow{
   width: 100%;
