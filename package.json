@@ -10,10 +10,11 @@
     "lint": "eslint --ext .js,.vue src"
   },
   "dependencies": {
+    "jquery": "^2.2.3",
+    "mysql": "^2.13.0",
     "vue": "^2.1.10",
     "vue-resource": "^1.2.0",
-    "vue-router": "^2.2.0",
-    "jquery": "^2.2.3"
+    "vue-router": "^2.2.0"
   },
   "devDependencies": {
     "autoprefixer": "^6.7.2",

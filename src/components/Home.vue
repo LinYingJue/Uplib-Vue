@@ -43,10 +43,10 @@
           <p class="home-top-title"></p>
           <div class="swiper-container home-rank-swiper">
             <div class="swiper-wrapper" id="homeRankList">
-              <div class="swiper-slide top-rank-item" v-for="(book, index) in rankBooks" @click="showBookDetail(book.bookId)">
-                <p style="font-size:12px;">{{book.ownerName}}</p>
+              <div class="swiper-slide top-rank-item" v-for="(book, index) in rankBooks" @click="showBookDetail(book.book_id)">
+                <p style="font-size:12px;">{{book.owner_name}}</p>
                 <img :src="book.cover"></img>
-                <p>{{book.bookName}}</p>
+                <p>{{book.book_name}}</p>
               </div>
             </div>
           </div>
@@ -106,7 +106,7 @@ export default {
       }
     })
     this.$http.get('/getTopThree').then((response) => {
-      this.rankBooks = response.data.books
+      this.rankBooks = response.data
     })
   },
   updated () {
@@ -125,7 +125,7 @@ export default {
     },
     showBookDetail (id) {
       this.$http.get('/getBookDetail?bookId=' + id).then((response) => {
-        this.$router.push({path: 'book-detail', query: { data: response.data.data }})
+        this.$router.push({path: 'book-detail', query: { data: response.data }})
       })
     },
     drawerClick (id) {

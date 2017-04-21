@@ -11,14 +11,14 @@
       <img class="book-status-pic" v-else src="../assets/down_icon.png"></img>
     </div>
     <div class="book-detail-info">
-      <p class="book-title">{{bookDetail.bookName}}</p>
-      <p class="book-owner">{{bookDetail.ownerName}} - {{bookDetail.ownerTeam}}
+      <p class="book-title">{{bookDetail.book_name}}</p>
+      <p class="book-owner">{{bookDetail.owner_name}} - {{bookDetail.owner_team}}
         <span>
           <img class="book-like-icon" src="../assets/like_icon.png"></img>
-          <font id="likeNum" v-if="bookDetail.likeNumes > 0">{{bookDetail.likeNumes}}</font>
+          <font id="likeNum" v-if="bookDetail.like_numes > 0">{{bookDetail.like_numes}}</font>
           <font id="likeNum" v-else>0</font>
           <img class="book-borrow-icon" src="../assets/borrow_icon.png"></img>
-          <font v-if="bookDetail.borrowNums > 0">{{bookDetail.borrowNums}}</font>
+          <font v-if="bookDetail.borrow_nums > 0">{{bookDetail.borrow_nums}}</font>
           <font v-else>0</font>
         </span>
       </p>
@@ -26,9 +26,9 @@
       <p class="book-desc" v-else>该书暂无简介...</p>
     </div>
     <div class="book-other-info">
-      <p v-if="bookDetail.status === '00' && bookDetail.borrowType === '01'">交换条件<span>{{bookDetail.exchangeCondition}}</span></p>
-      <p v-else-if="bookDetail.status === '00'">可借时间<span>{{bookDetail.lastDay}}</span></p>
-      <p v-if="bookDetail.status === '01'">借阅者<span>{{bookDetail.readerName}} - {{bookDetail.readerTeam}}</span></p>
+      <p v-if="bookDetail.status === '00' && bookDetail.borrow_type === '01'">交换条件<span>{{bookDetail.exchange_condition}}</span></p>
+      <p v-else-if="bookDetail.status === '00'">可借时间<span>{{bookDetail.last_day}}</span></p>
+      <p v-if="bookDetail.status === '01'">借阅者<span>{{bookDetail.reader_name}} - {{bookDetail.reader_team}}</span></p>
       <p v-if="bookDetail.status === '01'">到期时间<span>{{realEndTime}}</span></p>
     </div>
     <div class="book-comment-info" v-if="reviewList.length > 0">
@@ -54,14 +54,14 @@ import $ from 'jquery'
 export default {
   data () {
     return {
-      bookDetail: this.$route.query.data.bookDetail,
-      reviewList: this.$route.query.data.reviewList
+      bookDetail: this.$route.query.data[0],
+      reviewList: ''
     }
   },
   computed: {
     realEndTime: function () {
       var newDate = new Date()
-      newDate.setTime(this.bookDetail.endTime)
+      newDate.setTime(this.bookDetail.end_time)
       return newDate.toLocaleDateString()
     }
   },

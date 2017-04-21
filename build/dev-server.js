@@ -14,6 +14,7 @@ var webpack = require('webpack')
 var proxyMiddleware = require('http-proxy-middleware')
 var webpackConfig = require('./webpack.dev.conf')
 var http = require('http')
+var uplibDao = require('../dao/uplib.db')
 
 // default port where dev server listens for incoming traffic
 var port = process.env.PORT || config.dev.port
@@ -72,29 +73,23 @@ devMiddleware.waitUntilValid(function () {
 })
 
 app.get('/getTopThree', (request, response) => {
-  http.get('http://tdctest.95516.com/uplib/getTopThree', (res) => {
-    var books = '';
-    res.on('data', (d) => {
-      books += d;
-    }).on('error',(e) => {
-      console.error(e);
-    }).on('end', () => {
-      response.send(books);
-    });
+  uplibDao.getBooksByLimits(10, (state, result) => {
+    if(state){
+      response.send(result);
+    }else{
+      response.send('');
+    }
   });
 });
 
 app.get('/getBookDetail', (request, response) => {
   var bookId = request.query.bookId;
-  http.get('http://tdctest.95516.com/uplib/book/bookDetailInfo?bookId=' + bookId, (res) => {
-    var book = '';
-    res.on('data', (d) => {
-      book += d;
-    }).on('error',(e) => {
-      console.error(e);
-    }).on('end', () => {
-      response.send(book);
-    });
+  uplibDao.getBookDetail(bookId, (state, result) => {
+    if(state){
+      response.send(result);
+    }else{
+      response.send('');
+    }
   });
 });
 
