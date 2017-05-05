@@ -93,6 +93,18 @@ app.get('/getBookDetail', (request, response) => {
   });
 });
 
+app.get('/getAllBookAndUserList', (request, response) => {
+  uplibDao.getAllBookAndUserList((state, bookList, userList) => {
+    if(state){
+      var jsonRes = '{"bookList":'+bookList+',"userList":'+userList+'}';
+      jsonRes = JSON.parse(jsonRes);
+      response.send(jsonRes);
+    }else{
+      response.send('');
+    }
+  });
+});
+
 module.exports = app.listen(port, function (err) {
   if (err) {
     console.log(err)

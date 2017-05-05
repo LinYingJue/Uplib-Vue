@@ -32,7 +32,7 @@
         <div class="second-oper-bar">
           <ul>
             <li v-for="(secMenu, index) in secMenus">
-              <div class="second-list-item">
+              <div class="second-list-item" @click="goToSecMenu(secMenu.url)">
                 <img :src="secMenu.src"></img>
                 <p>{{secMenu.name}}</p>
               </div>
@@ -134,6 +134,9 @@ export default {
     drawerShadowClick () {
       this.homeSwiper.slideTo(1)
       $('.menu-drawer-shadow').css('display', 'none')
+    },
+    goToSecMenu (url) {
+      this.$router.push({path: url})
     }
   }
 }

@@ -32,6 +32,9 @@ a, a:hover, a:focus{
 div{
   box-sizing: border-box;
 }
+p{
+  margin: 0;
+}
 .container{
   position: relative;
   min-height: 450px;
