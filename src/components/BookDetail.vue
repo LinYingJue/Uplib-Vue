@@ -28,7 +28,7 @@
     <div class="book-other-info">
       <p v-if="bookDetail.status === '00' && bookDetail.borrow_type === '01'">交换条件<span>{{bookDetail.exchange_condition}}</span></p>
       <p v-else-if="bookDetail.status === '00'">可借时间<span>{{bookDetail.last_day}}</span></p>
-      <p v-if="bookDetail.status === '01'">借阅者<span>{{bookDetail.reader_name}} - {{bookDetail.reader_team}}</span></p>
+      <p v-if="bookDetail.status === '01'">借阅者<span>{{bookBorrow.name}}</span></p>
       <p v-if="bookDetail.status === '01'">到期时间<span>{{realEndTime}}</span></p>
     </div>
     <div class="book-comment-info" v-if="reviewList.length > 0">
@@ -36,11 +36,11 @@
       <ul>
         <li v-for="reviewItem in reviewList">
           <div>
-            <img v-if="reviewItem.reviewerIcon !== ''" class="review-header" :src="reviewItem.reviewerIcon"></img>
+            <img v-if="reviewItem.reviewer_icon !== ''" class="review-header" :src="reviewItem.reviewer_icon"></img>
             <img v-else class="review-header" src="../assets/user_header_icon.png"></img>
             <p class="review-user">{{reviewItem.reviewer}}</p>
-            <p class="review-content">{{reviewItem.reviewContent}}</p>
-            <p class="review-time">{{translateDate(reviewItem.reviewTime)}}</p>
+            <p class="review-content">{{reviewItem.review_content}}</p>
+            <p class="review-time">{{translateDate(reviewItem.review_time)}}</p>
           </div>
         </li>
       </ul>
@@ -54,14 +54,14 @@ import $ from 'jquery'
 export default {
   data () {
     return {
-      bookDetail: this.$route.query.data[0],
-      reviewList: ''
+      bookDetail: this.$route.query.data.bookDetail,
+      reviewList: this.$route.query.data.bookComment,
+      bookBorrow: this.$route.query.data.bookBorrow
     }
   },
   computed: {
     realEndTime: function () {
-      var newDate = new Date()
-      newDate.setTime(this.bookDetail.end_time)
+      var newDate = new Date(this.bookBorrow.end_time)
       return newDate.toLocaleDateString()
     }
   },
@@ -73,8 +73,7 @@ export default {
       this.$router.go(-1)
     },
     translateDate (val) {
-      var newDate = new Date()
-      newDate.setTime(val)
+      var newDate = new Date(val)
       return newDate.toLocaleDateString()
     }
   }

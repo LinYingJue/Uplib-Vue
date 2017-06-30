@@ -94,11 +94,9 @@ app.get('/getBookDetail', (request, response) => {
 });
 
 app.get('/getAllBookAndUserList', (request, response) => {
-  uplibDao.getAllBookAndUserList((state, bookList, userList) => {
+  uplibDao.getAllBookAndUserList((state, result) => {
     if(state){
-      var jsonRes = '{"bookList":'+bookList+',"userList":'+userList+'}';
-      jsonRes = JSON.parse(jsonRes);
-      response.send(jsonRes);
+      response.send(result);
     }else{
       response.send('');
     }
